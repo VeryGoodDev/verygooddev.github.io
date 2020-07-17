@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Be Right Back | VeryGoodDev</title>
+  <style>
+    @import url("https://fonts.googleapis.com/css2?family=Righteous&display=swap");
+
+    body {
+      padding: 0;
+      margin: 0;
+    }
+    body > div {
+      width: 100vw;
+      height: 100vh;
+      display: grid;
+      align-items: center;
+      align-content: center;
+      justify-content: center;
+      font-size: 8vw;
+      background-color: #04154e;
+      color: #16db93;
+      font-family: 'Righteous', sans-serif;
+      text-transform: uppercase;
+    }
+    output {
+      font-variant-numeric: tabular-nums;
+      font-size: 4vw;
+      transition: opacity ease-in-out 375ms;
+      width: 100%;
+    }
+  </style>
+</head>
+<body>
+  <div>
+    <div>Be back soon</div>
+    <output></output>
+  </div>
+  <script>
+    const output = document.querySelector(`output`)
+    const time = Number(window.location.search.replace(/^.*t=(-?\d+).*$/, `$1`) || 240)
+
+    // document.body.requestFullscreen()
+    let timeLeft = Number.isNaN(time) ? 240 : time
+    if (timeLeft >= 0) {
+      output.textContent = `${Math.floor(timeLeft / 60)}:${(timeLeft % 60).toString().padStart(2, 0)}`
+      let interval = setInterval(() => {
+        if (--timeLeft < 0) {
+          clearInterval(interval)
+          output.style.opacity = 0
+          return
+        }
+        const minutes = Math.floor(timeLeft / 60)
+        const seconds = timeLeft % 60
+        output.textContent = `${minutes}:${seconds.toString().padStart(2, 0)}`
+      }, 1000)
+    }
+  </script>
+</body>
+</html>
