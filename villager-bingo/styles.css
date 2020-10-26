@@ -1,0 +1,23 @@
+body {
+  align-items: center;
+  display: grid;
+  margin: 0;
+  height: 100vh;
+  justify-content: center;
+  width: 100vw;
+}
+table {
+  border-collapse: collapse;
+}
+td {
+  --size: calc((100vmin - 300px) / 5);
+  border: 1px solid #000;
+  height: var(--size);
+  padding: 0;
+  width: var(--size);
+}
+td img {
+  background-color: #b0b0b0;
+  height: auto;
+  width: var(--size);
+}
