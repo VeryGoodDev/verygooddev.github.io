@@ -65,6 +65,7 @@ function hslToHex(h, s, l) {
 // TODO: Interactivity on squares
 // TODO: Set free square and exclusions
 // TODO: Maybe look into PWA-ifying
+// TODO: Use browser language/user selected for names (villager data has multiple, use navigator.languages)
 const random = (l, h) => l + Math.floor(Math.random() * (h - l))
 document.addEventListener(`DOMContentLoaded`, () => {
   const card = document.querySelector(`table`)
