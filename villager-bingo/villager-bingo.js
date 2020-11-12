@@ -68,7 +68,7 @@ function hslToHex(h, s, l) {
 // TODO: Use browser language/user selected for names (villager data has multiple, use navigator.languages)
 const random = (l, h) => l + Math.floor(Math.random() * (h - l))
 document.addEventListener(`DOMContentLoaded`, () => {
-  const card = document.querySelector(`table`)
+  const card = document.querySelector(`.bingo-card`)
   const generateBtn = document.querySelector(`button`)
 
   const villagersRaw = [
@@ -99,7 +99,7 @@ document.addEventListener(`DOMContentLoaded`, () => {
     }, [])
     for (let i = 0; i < 5; ++i) {
       for (let j = 0; j < 5; ++j) {
-        const cell = document.querySelector(`.row-${i}.col-${j}`)
+        const cell = document.querySelector(`.row-${i}.col-${j} .cell-inner`)
         const villager = villagers[sorted[i][j]]
         const [img, name] = [...cell.children]
         img.src = villager.icon
@@ -113,22 +113,22 @@ document.addEventListener(`DOMContentLoaded`, () => {
   }
   function onLoad() {
     for (let i = 0; i < 5; ++i) {
-      const row = document.createElement(`tr`)
       for (let j = 0; j < 5; ++j) {
-        const cellWrapper = document.createElement(`td`)
-        cellWrapper.classList.add(`cell-wrapper`)
-        const cell = document.createElement(`div`)
+        const cell = document.createElement(`button`)
+        cell.type = `button`
         cell.classList.add(`cell`, `row-${i}`, `col-${j}`)
+        const cellInner = document.createElement(`div`)
+        cellInner.classList.add(`cell-inner`)
         const img = document.createElement(`img`)
         img.src = ``
+        img.setAttribute(`aria-hidden`, true)
         const name = document.createElement(`span`)
         name.classList.add(`name`)
-        cell.appendChild(img)
-        cell.appendChild(name)
-        cellWrapper.appendChild(cell)
-        row.appendChild(cellWrapper)
+        cellInner.appendChild(img)
+        cellInner.appendChild(name)
+        cell.appendChild(cellInner)
+        card.appendChild(cell)
       }
-      card.appendChild(row)
     }
   }
   function transformVillager(villager) {

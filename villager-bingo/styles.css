@@ -7,22 +7,26 @@ body {
   grid-template-rows: auto auto 1fr;
   font-family: Montserrat, sans-serif;
   margin: 0;
-  height: 100vh;
   justify-content: center;
+  min-height: 100vh;
   width: 100vw;
 }
-table {
+.bingo-card {
+  --size: calc(100vmax - 300px);
   align-self: start;
-  border-collapse: collapse;
-}
-td {
-  --size: calc((100vmin - 300px) / 5);
-  border: 1px solid #000;
-  height: var(--size);
-  padding: 0;
-  width: var(--size);
+  border: 1px solid black;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-template-rows: repeat(5, 1fr);
+  /* height: var(--size);
+  width: var(--size); */
 }
 .cell {
+  border: none;
+  cursor: pointer;
+  padding: 0;
+}
+.cell-inner {
   display: grid;
   grid-template-rows: auto 1fr;
   min-height: 100%;
@@ -32,7 +36,7 @@ td {
   background-color: #b0b0b0;
   height: auto;
   padding: 0 0.25em;
-  width: var(--size);
+  width: calc(var(--size) / 5);
 }
 .cell .name {
   align-content: center;
@@ -40,7 +44,7 @@ td {
   display: grid;
   padding: 0.25em;
 }
-button {
+.controls button {
   background-color: #936826;
   border: none;
   border-radius: 6px;
@@ -50,4 +54,8 @@ button {
   font-size: 1.05em;
   font-weight: bold;
   padding: 0.25em 1em 0.375em;
+}
+
+[hidden] {
+  display: none !important;
 }
