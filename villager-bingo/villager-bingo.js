@@ -56,14 +56,13 @@ function hslToHex(h, s, l) {
   blue = Math.round((blue + m) * 255).toString(16)
   return `#${red.padStart(2, 0)}${green.padStart(2, 0)}${blue.padStart(2, 0)}`
 }
-// TODO: Replace table with div/CSS grid
 // TODO: Use indexedDB for caching villager data
 // TODO: General styling
 // TODO: Print options w/ and w/o images
 // TODO: Investigate caching images as base64 strings
 // TODO: Mobile
-// TODO: Interactivity on squares
 // TODO: Set free square and exclusions
+// TODO: Bingo detection (count total bingos)
 // TODO: Maybe look into PWA-ifying
 // TODO: Use browser language/user selected for names (villager data has multiple, use navigator.languages)
 const random = (l, h) => l + Math.floor(Math.random() * (h - l))
@@ -84,7 +83,7 @@ document.addEventListener(`DOMContentLoaded`, () => {
   onLoad()
 
   function generateCard() {
-    document.querySelectorAll(`td img`).forEach(img => {
+    document.querySelectorAll(`.cell img`).forEach(img => {
       // img.style.height = img.naturalHeight
       img.src = ``
     })
@@ -103,6 +102,7 @@ document.addEventListener(`DOMContentLoaded`, () => {
         const villager = villagers[sorted[i][j]]
         const [img, name] = [...cell.children]
         img.src = villager.icon
+        img.parentElement.style.backgroundColor = villager.backgroundColor
         img.style.backgroundColor = villager.backgroundColor
         name.textContent = villager.name
         name.style.backgroundColor = villager.bubbleColor
@@ -117,6 +117,10 @@ document.addEventListener(`DOMContentLoaded`, () => {
         const cell = document.createElement(`button`)
         cell.type = `button`
         cell.classList.add(`cell`, `row-${i}`, `col-${j}`)
+        cell.addEventListener(`click`, (evt) => {
+          console.log('click')
+          evt.currentTarget.classList.toggle(`marked`)
+        })
         const cellInner = document.createElement(`div`)
         cellInner.classList.add(`cell-inner`)
         const img = document.createElement(`img`)

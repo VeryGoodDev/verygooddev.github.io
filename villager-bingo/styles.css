@@ -6,29 +6,41 @@ body {
   grid-row-gap: 0.5em;
   grid-template-rows: auto auto 1fr;
   font-family: Montserrat, sans-serif;
-  margin: 0;
   justify-content: center;
+  margin: 0;
   min-height: 100vh;
+  padding-bottom: 1em;
   width: 100vw;
 }
 .bingo-card {
-  --size: calc(100vmax - 300px);
+  --size: calc(100vmin - 200px);
   align-self: start;
   border: 1px solid black;
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   grid-template-rows: repeat(5, 1fr);
-  /* height: var(--size);
-  width: var(--size); */
 }
 .cell {
-  border: none;
+  border: 1px solid #000;
   cursor: pointer;
   padding: 0;
+  position: relative;
+}
+.cell.marked::after {
+  color: #fff;
+  content: '✖';
+  font-size: calc(var(--size) / 5 - 0.5em);
+  left: 50%;
+  position: absolute;
+  text-shadow: 0 0 8px #000;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1;
+}
 }
 .cell-inner {
   display: grid;
-  grid-template-rows: auto 1fr;
+  grid-template-rows: 1fr auto;
   min-height: 100%;
   text-align: center;
 }
